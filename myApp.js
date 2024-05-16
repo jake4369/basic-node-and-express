@@ -1,10 +1,15 @@
 let express = require("express");
+let bodyParser = require("body-parser");
 require("dotenv").config();
+
 let app = express();
 let path = require("path");
 
 // Serve Static Assets
 app.use("/public", express.static(__dirname + "/public"));
+
+// Use body-parser to Parse POST Requests
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Implement a Root-Level Request Logger Middleware
 const logger = (req, res, next) => {

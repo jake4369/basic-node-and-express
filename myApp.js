@@ -3,10 +3,10 @@ require("dotenv").config();
 let app = express();
 let path = require("path");
 
-// Middleware
+// Serve Static Assets
 app.use("/public", express.static(__dirname + "/public"));
 
-// Logger middleware
+// Implement a Root-Level Request Logger Middleware
 const logger = (req, res, next) => {
   console.log(`${req.method} ${req.path} - ${req.ip}`);
   next();
@@ -14,11 +14,12 @@ const logger = (req, res, next) => {
 
 app.use(logger);
 
-// Routes
+// Serve an HTML File
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+// Serve JSON on a Specific Route
 app.get("/json", (req, res) => {
   res.json({
     message:
@@ -26,6 +27,7 @@ app.get("/json", (req, res) => {
   });
 });
 
+// Chain Middleware to Create a Time Server
 app.get(
   "/now",
   (req, res, next) => {
@@ -39,8 +41,14 @@ app.get(
   }
 );
 
+// Get Route Parameter Input from the Client
 app.get("/:word/echo", (req, res) => {
   res.json({ echo: req.params.word });
+});
+
+// Get Query Parameter Input from the Client
+app.get("/name", (req, res) => {
+  res.json({ name: `${req.query.firstname} ${req.query.lastname}` });
 });
 
 module.exports = app;

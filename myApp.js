@@ -53,15 +53,14 @@ app.get("/:word/echo", (req, res) => {
 
 // Get Query Parameter Input from the Client
 app.get("/name", (req, res) => {
-  res.json({ name: `${req.query.first} ${req.query.last}` });
+  const name = req.query.first + " " + req.query.last;
+  res.json({ name });
 });
 
 // Get Data from POST Requests
 app.post("/library", (req, res) => {
   const name = req.body.first + " " + req.body.last;
-  res.json({
-    name,
-  });
+  res.json({ name });
 });
 
 module.exports = app;

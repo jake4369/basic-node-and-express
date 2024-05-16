@@ -58,8 +58,9 @@ app.get("/name", (req, res) => {
 
 // Get Data from POST Requests
 app.post("/library", (req, res) => {
+  const name = req.body.first + " " + req.body.last;
   res.json({
-    name: `${req.body.first} ${req.body.last}`,
+    name,
   });
 });
 
